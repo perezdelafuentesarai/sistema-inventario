@@ -1,0 +1,39 @@
+name: Build Sistema de Inventario
+
+# El workflow se ejecuta automaticamente cuando:
+# - push: se suben cambios a main
+# - pull_request: se abre un Pull Request hacia main
+# - workflow_dispatch: se lanza manualmente desde la pestana Actions
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Verificar y construir el proyecto
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar el codigo del repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Instalar dependencias
+        run: npm install
+
+      - name: Verificar sintaxis del codigo fuente (compilacion)
+        run: node --check src/producto.js
+
+      - name: Verificar sintaxis de las pruebas
+        run: node --check tests/producto.test.js
+
+      - name: Ejecutar las pruebas del proyecto
+        run: npm test
