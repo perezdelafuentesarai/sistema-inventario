@@ -1,0 +1,32 @@
+name: Pruebas Producto
+
+# Eventos que activan el workflow:
+# - push: se ejecuta en cada cambio subido a main o a ramas de la fase TEST
+# - pull_request: se ejecuta cuando se abre un Pull Request hacia main
+on:
+  push:
+    branches:
+      - main
+      - 'test/**'
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  pruebas:
+    name: Ejecutar pruebas del producto
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar el código del repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Instalar dependencias
+        run: npm install
+
+      - name: Ejecutar las pruebas con Jest
+        run: npm test
