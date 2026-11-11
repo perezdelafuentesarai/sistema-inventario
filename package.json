@@ -1,0 +1,14 @@
+{
+  "name": "sistema-inventario",
+  "version": "1.0.0",
+  "description": "Sistema web para la gestión de inventarios de un comercio electrónico.",
+  "main": "src/producto.js",
+  "scripts": {
+    "test": "jest --verbose"
+  },
+  "keywords": ["inventario", "producto"],
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}
